@@ -1,4 +1,4 @@
-// Kino plugin: Eporner v1.2.0
+// Kino plugin: Eporner v1.2.1
 // API v2 oficial. Thumbs 16:9 (big 640x360). Secciones filtradas por keywords.
 // Ver más / búsqueda: hasta 100 ítems (tope Kino). Títulos con entidades HTML.
 
@@ -64,18 +64,18 @@ const SECTIONS = [
     filter: ["milf", "mature", "mom", "mother"],
   },
   {
-    id: "anal",
-    title: "Anal",
-    query: "anal",
+    id: "homemade",
+    title: "Homemade",
+    query: "homemade",
     order: "latest",
-    filter: ["anal"],
+    filter: ["homemade", "amateur", "webcam", "real", "couple"],
   },
   {
-    id: "lesbian",
-    title: "Lesbian",
-    query: "lesbian",
+    id: "cosplay",
+    title: "Cosplay",
+    query: "cosplay",
     order: "latest",
-    filter: ["lesbian", "girl on girl", "lesbians"],
+    filter: ["cosplay", "costume", "roleplay", "anime", "hentai"],
   },
 ];
 
@@ -206,22 +206,35 @@ async function apiSearch(query, page, order, perPage) {
   return data;
 }
 
-/** Miniatura horizontal 16:9 (API big = 640×360) */
+/**
+ * Miniatura horizontal 16:9.
+ * API thumbsize=big → 640×360 (o a veces 480×360). Preferimos siempre width > height.
+ * Las URLs *_360.jpg son el set landscape de Eporner.
+ */
 function pickThumb(v) {
-  if (v.default_thumb && v.default_thumb.src) {
-    const t = v.default_thumb;
-    if (t.width && t.height && t.width >= t.height) return t.src;
-    if (t.src) return t.src;
-  }
+  const candidates = [];
+  if (v.default_thumb && v.default_thumb.src) candidates.push(v.default_thumb);
   if (v.thumbs && v.thumbs.length) {
-    // Preferir 640x360
-    for (const t of v.thumbs) {
-      if (t && t.src && t.width === 640 && t.height === 360) return t.src;
-    }
-    for (const t of v.thumbs) {
-      if (t && t.src && t.width && t.height && t.width > t.height) return t.src;
-    }
-    if (v.thumbs[0] && v.thumbs[0].src) return v.thumbs[0].src;
+    for (const t of v.thumbs) if (t && t.src) candidates.push(t);
+  }
+  // 1) Exacto 640×360
+  for (const t of candidates) {
+    if (t.width === 640 && t.height === 360) return t.src;
+  }
+  // 2) Landscape width >= height * 1.4 (≈16:9)
+  for (const t of candidates) {
+    if (t.width && t.height && t.width / t.height >= 1.4) return t.src;
+  }
+  // 3) Cualquier landscape
+  for (const t of candidates) {
+    if (t.width && t.height && t.width > t.height) return t.src;
+  }
+  // 4) Forzar variante _360 en la URL si viene otra
+  for (const t of candidates) {
+    if (!t.src) continue;
+    const forced = String(t.src).replace(/_\d+\.jpg/i, "_360.jpg");
+    if (forced !== t.src) return forced;
+    return t.src;
   }
   return undefined;
 }
@@ -233,7 +246,8 @@ function videoToItem(v) {
   const title = decodeTitle(v.title || id);
   if (!title) return null;
 
-  const poster = pickThumb(v);
+  // Misma imagen 16:9 en poster y backdrop (Kino usa poster en la fila del Home)
+  const thumb = pickThumb(v);
   const runtimeMinutes =
     typeof v.length_sec === "number" && v.length_sec > 0
       ? Math.max(1, Math.round(v.length_sec / 60))
@@ -252,7 +266,10 @@ function videoToItem(v) {
     kind: "movie",
     adult: true,
   };
-  if (poster) item.poster = poster;
+  if (thumb) {
+    item.poster = thumb;
+    item.backdrop = thumb;
+  }
   if (runtimeMinutes) item.runtimeMinutes = runtimeMinutes;
   if (rating != null) item.rating = rating;
   if (v.keywords) {

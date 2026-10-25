@@ -1,10 +1,10 @@
 {
   "id": "eporner",
   "name": "Eporner",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "apiVersion": 6,
   "entry": "plugin.js",
-  "description": "Eporner HD: recientes, top semanal/mensual, categor\u00edas filtradas. Thumbs 16:9, calidad MP4, b\u00fasqueda precisa, ver m\u00e1s hasta 100.",
+  "description": "Eporner HD: thumbs 16:9 (640\u00d7360), Homemade y Cosplay, rankings y categor\u00edas filtradas. MP4 multi-calidad.",
   "author": "community",
   "homepage": "https://www.eporner.com",
   "hosts": [
