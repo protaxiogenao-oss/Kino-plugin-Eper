@@ -1,0 +1,77 @@
+{
+  "id": "eporner",
+  "name": "Eporner",
+  "version": "1.2.0",
+  "apiVersion": 6,
+  "entry": "plugin.js",
+  "description": "Eporner HD: recientes, top semanal/mensual, categor\u00edas filtradas. Thumbs 16:9, calidad MP4, b\u00fasqueda precisa, ver m\u00e1s hasta 100.",
+  "author": "community",
+  "homepage": "https://www.eporner.com",
+  "hosts": [
+    "eporner.com",
+    "*.eporner.com",
+    "www.eporner.com",
+    "static-ca-cdn.eporner.com",
+    "static.eporner.com",
+    "gvideo.eporner.com",
+    "*.cdn.eporner.com"
+  ],
+  "capabilities": [
+    "search",
+    "home",
+    "browse",
+    "resolve"
+  ],
+  "color": "#E85D04",
+  "icon": "icon.png",
+  "categories": [
+    "adult",
+    "movies"
+  ],
+  "streamHosts": "any",
+  "settings": [
+    {
+      "key": "playback",
+      "label": "Reproducci\u00f3n",
+      "type": "section",
+      "hint": "Calidad preferida al reproducir (MP4 progresivo, compatible Android TV)."
+    },
+    {
+      "key": "quality",
+      "label": "Calidad preferida",
+      "type": "select",
+      "default": "auto",
+      "hint": "La m\u00e1s alta usa m\u00e1s datos",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Autom\u00e1tica (m\u00e1xima)"
+        },
+        {
+          "value": "2160",
+          "label": "4K (2160p)"
+        },
+        {
+          "value": "1080",
+          "label": "1080p"
+        },
+        {
+          "value": "720",
+          "label": "720p"
+        },
+        {
+          "value": "480",
+          "label": "480p"
+        },
+        {
+          "value": "360",
+          "label": "360p"
+        },
+        {
+          "value": "240",
+          "label": "240p"
+        }
+      ]
+    }
+  ]
+}
