@@ -1,4 +1,4 @@
-// Kino plugin: Eporner v1.2.1
+// Kino plugin: Eporner v1.2.2
 // API v2 oficial. Thumbs 16:9 (big 640x360). Secciones filtradas por keywords.
 // Ver más / búsqueda: hasta 100 ítems (tope Kino). Títulos con entidades HTML.
 
@@ -20,7 +20,13 @@ const SECTIONS = [
   { id: "top-semanal", title: "Top semanal", query: "all", order: "top-weekly", filter: null },
   { id: "top-mensual", title: "Top mensual", query: "all", order: "top-monthly", filter: null },
   { id: "mas-vistos", title: "Más vistos", query: "all", order: "most-popular", filter: null },
-  { id: "mejor-valorados", title: "Mejor valorados", query: "all", order: "top-rated", filter: null },
+  {
+    id: "cosplay",
+    title: "Cosplay",
+    query: "cosplay",
+    order: "latest",
+    filter: ["cosplay", "costume", "roleplay", "anime", "hentai"],
+  },
   {
     id: "asian",
     title: "Asian",
@@ -69,13 +75,6 @@ const SECTIONS = [
     query: "homemade",
     order: "latest",
     filter: ["homemade", "amateur", "webcam", "real", "couple"],
-  },
-  {
-    id: "cosplay",
-    title: "Cosplay",
-    query: "cosplay",
-    order: "latest",
-    filter: ["cosplay", "costume", "roleplay", "anime", "hentai"],
   },
 ];
 

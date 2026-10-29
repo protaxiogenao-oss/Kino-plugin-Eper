@@ -1,11 +1,11 @@
 {
   "id": "eporner",
   "name": "Eporner",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "apiVersion": 6,
   "entry": "plugin.js",
-  "description": "Eporner HD: thumbs 16:9 (640\u00d7360), Homemade y Cosplay, rankings y categor\u00edas filtradas. MP4 multi-calidad.",
-  "author": "community",
+  "description": "Hecho por Hotaru Yume. Eporner HD: recientes, rankings, Asian, JAV, Cosplay y m\u00e1s. Thumbs 16:9, MP4 multi-calidad, b\u00fasqueda precisa.",
+  "author": "Hotaru Yume",
   "homepage": "https://www.eporner.com",
   "hosts": [
     "eporner.com",
