@@ -27,7 +27,6 @@
   "icon": "icon.png",
   "categories": [
     "adult",
-    "movies"
   ],
   "streamHosts": "any",
   "settings": [
